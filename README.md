@@ -8,3 +8,15 @@ Before running the script, you need to install the required dependencies. You ca
 
 ```bash
 pip install -r requirements.txt
+```
+
+## Edit Script with your LinkedIn credentials
+
+username.send_keys("")  # Replace with your email
+password.send_keys("")  # Replace with your password
+
+## Run the Script
+
+```bash
+python linkedinv2.py
+
