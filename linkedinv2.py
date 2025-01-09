@@ -6,6 +6,7 @@ from webdriver_manager.chrome import ChromeDriverManager
 import time
 import random
 from urllib.parse import urlencode
+from datetime import datetime
 
 # Prevent the ai-block with random delay
 def random_delay(min_time=10, max_time=20):
@@ -13,8 +14,12 @@ def random_delay(min_time=10, max_time=20):
 
 # Function scrape
 def scrape_job_details(keyword):
+    # Generate a dynamic database filename with the current date and timestamp
+    timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M")
+    db_filename = f"job_details_{timestamp}.db"
+    
     # Set up SQLite database
-    conn = sqlite3.connect("job_details.db")
+    conn = sqlite3.connect(db_filename)
     cursor = conn.cursor()
     cursor.execute('''CREATE TABLE IF NOT EXISTS jobs 
                       (id INTEGER PRIMARY KEY, title TEXT, company TEXT, description TEXT)''')
@@ -44,7 +49,7 @@ def scrape_job_details(keyword):
 
         # Extract job details
         job_cards = driver.find_elements(By.CLASS_NAME, "job-card-container")
-        for index, job_card in enumerate(job_cards[:2]):  # Adjust for 800 cards
+        for index, job_card in enumerate(job_cards[:1]):  # Adjust for 800 cards
             job_card.click()
             random_delay(10, 15)
 
